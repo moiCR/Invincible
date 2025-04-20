@@ -1,0 +1,4 @@
+name: Invincible
+version: '1.0-SNAPSHOT'
+main: git.snowk.invincible.Invincible
+api-version: '1.18'
