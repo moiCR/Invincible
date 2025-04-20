@@ -9,6 +9,7 @@ import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.FileConfig;
 import git.snowk.invincible.utils.command.CommandManager;
 import git.snowk.invincible.utils.menu.MenuManager;
+import git.snowk.invincible.utils.prompt.PromptManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,8 +22,9 @@ public final class Invincible extends JavaPlugin {
     private StorageManager storageManager;
     private CrateManager crateManager;
     private CommandManager commandManager;
-    private FileConfig config, lang;
     private HookManager hookManager;
+    private PromptManager promptManager;
+    private FileConfig config, lang;
 
     @Override
     public void onEnable() {
@@ -35,9 +37,10 @@ public final class Invincible extends JavaPlugin {
         this.crateManager = new CrateManager();
         this.menuManager = new MenuManager();
         this.storageManager = new StorageManager();
-        this.storageManager.onLoad();
+        this.promptManager = new PromptManager();
         this.hookManager = new HookManager();
 
+        this.storageManager.onLoad();
         this.crateManager.onEnable();
 
         log("");
