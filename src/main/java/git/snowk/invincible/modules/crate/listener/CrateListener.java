@@ -3,6 +3,7 @@ package git.snowk.invincible.modules.crate.listener;
 import git.snowk.invincible.Invincible;
 
 import git.snowk.invincible.modules.crate.Crate;
+import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -28,5 +29,14 @@ public class CrateListener implements Listener {
         if (crate == null) return;
 
         crate.handle(event);
+    }
+
+    @EventHandler
+    public void onCrateHologramUpdate(CrateHologramUpdateEvent event){
+
+        // run in the main server thread due to asynchronous problems with HolographicDisplays
+        Bukkit.getScheduler().runTask(Invincible.getInstance(), () -> {
+            event.getCrate().getHologram().updateHologram();
+        });
     }
 }

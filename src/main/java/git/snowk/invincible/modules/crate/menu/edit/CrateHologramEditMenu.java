@@ -1,6 +1,7 @@
 package git.snowk.invincible.modules.crate.menu.edit;
 
 import git.snowk.invincible.modules.crate.Crate;
+import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
 import git.snowk.invincible.modules.crate.menu.prompt.HologramEditLinePrompt;
 import git.snowk.invincible.modules.crate.menu.prompt.HologramNewLinePrompt;
 import git.snowk.invincible.utils.CompatibleSound;
@@ -25,7 +26,6 @@ public class CrateHologramEditMenu extends MenuPaginated {
         super(player, "Manage Crate Hologram", 2, false);
         this.crate = crate;
         getNavigateBar().put(3, new BackButton(new CrateEditMenu(player, crate)));
-        getNavigateBar().put(4, new UpdateHologramButton());
         getNavigateBar().put(5, new AddLineButton());
     }
 
@@ -52,7 +52,7 @@ public class CrateHologramEditMenu extends MenuPaginated {
         @Override
         public ItemStack icon() {
             return ItemMaker.of(Material.PAPER)
-                    .setDisplayName(line.isEmpty() ? "&7Empty String" : line)
+                    .setDisplayName(line.isEmpty() ? "&cEmpty String" : line)
                     .setLore("",
                             "&7Left-Click to edit the line.",
                             "&7Right-Click to remove the line.")
@@ -111,29 +111,10 @@ public class CrateHologramEditMenu extends MenuPaginated {
         }
     }
 
-    private class UpdateHologramButton implements Button{
 
-        @Override
-        public ItemStack icon() {
-            return ItemMaker.of(Material.EMERALD)
-                    .setDisplayName("&eUpdate Hologram")
-                    .setLore(
-                            "",
-                            "&7Click to update the hologram."
-                    )
-                    .build();
-        }
-
-        @Override
-        public void setAction(InventoryClickEvent event) {
-            crate.getHologram().updateHologram();
-            update();
-            CompatibleSound.LEVEL_UP.play(getPlayer());
-        }
-
-        @Override
-        public boolean isInteractable() {
-            return false;
-        }
+    @Override
+    public void update() {
+        super.update();
+        new CrateHologramUpdateEvent(crate);
     }
 }

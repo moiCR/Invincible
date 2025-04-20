@@ -1,6 +1,7 @@
 package git.snowk.invincible.modules.crate.menu.prompt;
 
 import git.snowk.invincible.modules.crate.Crate;
+import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
 import git.snowk.invincible.modules.crate.menu.edit.CrateHologramEditMenu;
 import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.CompatibleSound;
@@ -32,6 +33,7 @@ public class HologramNewLinePrompt extends StringPrompt {
         crate.getHologram().getLines().add(value);
         new CrateHologramEditMenu(player, crate).open();
         CompatibleSound.LEVEL_UP.play(player);
+        new CrateHologramUpdateEvent(crate);
         return null;
     }
 }
