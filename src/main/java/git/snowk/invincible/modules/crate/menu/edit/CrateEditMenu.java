@@ -7,6 +7,7 @@ import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
 import git.snowk.invincible.utils.menu.button.paginated.BackButton;
 import git.snowk.invincible.utils.menu.decoration.DecorationType;
+import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -35,6 +36,7 @@ public class CrateEditMenu extends Menu {
     public Map<Integer, Button> getButtons() {
         return Map.of(
                 12, new TypeButton(crate),
+                13, new HologramButton(crate),
                 14, new MenuButton(crate),
                 21, new LocationsButton(crate),
                 22, new LootButton(crate),
@@ -44,8 +46,10 @@ public class CrateEditMenu extends Menu {
         );
     }
 
+    @AllArgsConstructor
+    private class TypeButton implements Button {
 
-    private record TypeButton(Crate crate) implements Button {
+        private Crate crate;
 
         @Override
         public ItemStack icon() {
@@ -61,7 +65,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            //TODO: set type
+            new ChooseCrateTypeMenu(getPlayer(), crate).open();
         }
 
         @Override
@@ -70,7 +74,10 @@ public class CrateEditMenu extends Menu {
         }
     }
 
-    private record MenuButton(Crate crate) implements Button {
+    @AllArgsConstructor
+    private class MenuButton implements Button {
+
+        private Crate crate;
 
         @Override
         public ItemStack icon() {
@@ -97,7 +104,10 @@ public class CrateEditMenu extends Menu {
         }
     }
 
-    private record LocationsButton(Crate crate) implements Button {
+    @AllArgsConstructor
+    private class LocationsButton implements Button {
+
+        private Crate crate;
 
         @Override
         public ItemStack icon() {
@@ -123,7 +133,10 @@ public class CrateEditMenu extends Menu {
         }
     }
 
-    private record LootButton(Crate crate) implements Button {
+    @AllArgsConstructor
+    private class LootButton implements Button {
+
+        private Crate crate;
 
         @Override
         public ItemStack icon() {
@@ -149,7 +162,10 @@ public class CrateEditMenu extends Menu {
         }
     }
 
-    private record KeyButton(Crate crate) implements Button {
+    @AllArgsConstructor
+    private class KeyButton implements Button {
+
+        private Crate crate;
 
         @Override
         public ItemStack icon() {
@@ -195,6 +211,31 @@ public class CrateEditMenu extends Menu {
         @Override
         public void setAction(InventoryClickEvent event) {
             //TODO: confirm remove menu
+        }
+
+        @Override
+        public boolean isInteractable() {
+            return false;
+        }
+    }
+
+    @AllArgsConstructor
+    private class HologramButton implements Button {
+
+        private Crate crate;
+
+        @Override
+        public ItemStack icon() {
+            return ItemMaker.of(Material.PAPER)
+                    .setDisplayName("&aHologram Editor")
+                    .setLore("",
+                            "&aClick to manage the hologram.")
+                    .build();
+        }
+
+        @Override
+        public void setAction(InventoryClickEvent event) {
+
         }
 
         @Override
