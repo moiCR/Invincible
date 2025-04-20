@@ -1,9 +1,9 @@
 package git.snowk.invincible.modules.crate.hologram;
 
+import com.google.common.collect.Lists;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.Crate;
 import lombok.Data;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class CrateHologram {
 
     public CrateHologram(Crate crate){
         this.crate = crate;
-        this.lines = Arrays.asList(
+        this.lines = Lists.newArrayList(
                 "&e&l<crate> Crate",
                 "&7&o&nstore.example.com"
         );

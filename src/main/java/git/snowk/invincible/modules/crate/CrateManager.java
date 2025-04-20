@@ -29,8 +29,9 @@ public class CrateManager {
     }
 
     public void removeCrate(Crate crate){
-        this.crates.remove(crate.getCrateName());
+        Invincible.getInstance().getHookManager().getHologram().removeHolograms(crate);
         Invincible.getInstance().getStorageManager().getStorage().removeCrate(crate);
+        this.crates.remove(crate.getCrateName());
     }
 
     public Crate getByName(String name){

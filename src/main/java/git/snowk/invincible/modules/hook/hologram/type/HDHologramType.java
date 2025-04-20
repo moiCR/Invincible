@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HDHologram implements IHologram {
+public class HDHologramType implements IHologram {
 
     private final Map<String, List<Hologram>> holograms;
     private final HolographicDisplaysAPI api;
 
-    public HDHologram(Invincible plugin){
+    public HDHologramType(Invincible plugin){
         this.api = HolographicDisplaysAPI.get(plugin);
         this.holograms = new HashMap<>();
     }

@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,16 +35,16 @@ public class CrateEditMenu extends Menu {
 
     @Override
     public Map<Integer, Button> getButtons() {
-        return Map.of(
-                12, new TypeButton(crate),
-                13, new HologramButton(crate),
-                14, new MenuButton(crate),
-                21, new LocationsButton(crate),
-                22, new LootButton(crate),
-                23, new KeyButton(crate),
-                39, new BackButton(new ChooseCrateMenu(getPlayer())),
-                41, new RemoveButton()
-        );
+        Map<Integer, Button> buttons = new HashMap<>();
+        buttons.put(12, new TypeButton(crate));
+        buttons.put(13, new HologramButton(crate));
+        buttons.put(14, new MenuButton(crate));
+        buttons.put(21, new LocationsButton(crate));
+        buttons.put(22, new LootButton(crate));
+        buttons.put(23, new KeyButton(crate));
+        buttons.put(39, new BackButton(new ChooseCrateMenu(getPlayer())));
+        buttons.put(41, new RemoveButton());
+        return buttons;
     }
 
     @AllArgsConstructor

@@ -70,6 +70,5 @@ public class JsonStorage implements IStorage {
         if (file.exists()) {
             file.delete();
         }
-        Invincible.getInstance().getCrateManager().removeCrate(crate);
     }
 }
