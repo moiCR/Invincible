@@ -29,8 +29,9 @@ public class HDHologram implements IHologram {
         if (crate.getLocations().isEmpty()) return;
 
         for (Location oldLoc : crate.getLocations()){
-            Location newLoc = oldLoc.clone().add(0.5, 1.5, 0.5);
 
+            int linesCount = crate.getHologram().getLines().size();
+            Location newLoc = oldLoc.clone().add(0.5, 1 + (0.25 * linesCount), 0.5);
             Hologram newHolo = api.createHologram(newLoc);
 
 //            if (haveItem){
