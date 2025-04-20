@@ -235,7 +235,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-
+            new CrateHologramEditMenu(getPlayer(), crate).open();
         }
 
         @Override
