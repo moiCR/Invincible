@@ -1,11 +1,13 @@
-package dev.snowk.dante.util.menu;
+package git.snowk.invincible.utils.menu;
 
 
-import dev.snowk.dante.Dante;
-import dev.snowk.dante.util.Colorizer;
-import dev.snowk.dante.util.menu.button.Button;
-import dev.snowk.dante.util.menu.decoration.DecorationType;
-import lombok.Data;
+
+import git.snowk.invincible.Invincible;
+import git.snowk.invincible.utils.*;
+import git.snowk.invincible.utils.menu.button.Button;
+import git.snowk.invincible.utils.menu.decoration.DecorationType;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter @Setter
 public abstract class Menu {
 
     private int rows;
@@ -46,7 +48,7 @@ public abstract class Menu {
         this.decorationButtons = new HashMap<>();
         this.allowPlayerMoveInventory = false;
         this.allowAddItems = false;
-        this.updateTask = update ? Bukkit.getScheduler().runTaskTimerAsynchronously(Dante.getInstance(), this::update, 0L, 10L) : null;
+        this.updateTask = update ? Bukkit.getScheduler().runTaskTimerAsynchronously(Invincible.getInstance(), this::update, 0L, 10L) : null;
         this.soundOnClick = false;
     }
 
@@ -61,7 +63,7 @@ public abstract class Menu {
             public void run() {
                 menu.open();
             }
-        }.runTaskLater(Dante.getInstance(), (long)0.5*20L);
+        }.runTaskLater(Invincible.getInstance(), (long)0.5*20L);
     }
 
     public void open(){
@@ -81,11 +83,11 @@ public abstract class Menu {
 
 
         player.openInventory(this.inventory);
-        Dante.getInstance().getMenuManager().addMenu(player, this);
+        Invincible.getInstance().getMenuManager().addMenu(player, this);
     }
 
     public void update(){
-        Bukkit.getScheduler().runTaskAsynchronously(Dante.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(Invincible.getInstance(), () -> {
             this.getInventory().clear();
 
             if (isDecoration()){
@@ -103,7 +105,7 @@ public abstract class Menu {
     public void clean(){
         getDecorationButtons().clear();
         getButtons().clear();
-        Dante.getInstance().getMenuManager().removeMenu(player);
+        Invincible.getInstance().getMenuManager().removeMenu(player);
 
         if (updateTask != null){
             updateTask.cancel();

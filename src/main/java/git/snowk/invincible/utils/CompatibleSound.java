@@ -1,8 +1,8 @@
-package dev.snowk.dante.util;
+package git.snowk.invincible.utils;
 
 
 
-import dev.snowk.dante.util.extra.Server;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -292,14 +292,25 @@ public enum CompatibleSound {
     }
 
     private Sound getSound() {
-        if (Server.SERVER_VERSION_INT == 8) {
+        if (SERVER_VERSION_INT == 8) {
             return sound8 == null ? Sound.valueOf("IRONGOLEM_DEATH") : Sound.valueOf(sound8);
-        } else if (Server.SERVER_VERSION_INT > 9 && Server.SERVER_VERSION_INT < 13) {
+        } else if (SERVER_VERSION_INT > 9 && SERVER_VERSION_INT < 13) {
             return sound912 == null ? Sound.valueOf("ENTITY_IRONGOLEM_DEATH") : Sound.valueOf(sound912);
-        } else if (Server.SERVER_VERSION_INT >= 13) {
+        } else if (SERVER_VERSION_INT >= 13) {
             return sound13 == null ? Sound.valueOf("ENTITY_IRON_GOLEM_DEATH") : Sound.valueOf(sound13);
         } else {
             return null;
         }
     }
+
+    public final String SERVER_VERSION =
+            Bukkit.getServer()
+                    .getClass().getPackage()
+                    .getName().split("\\.")[3]
+                    .substring(1);
+
+    public final int SERVER_VERSION_INT = Integer.parseInt(
+            SERVER_VERSION
+                    .replace("1_", "")
+                    .replaceAll("_R\\d", ""));
 }

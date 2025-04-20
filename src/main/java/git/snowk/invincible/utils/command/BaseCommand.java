@@ -1,4 +1,4 @@
-package dev.snowk.dante.util.command;
+package git.snowk.invincible.utils.command;
 
 public abstract class BaseCommand {
 

@@ -1,9 +1,9 @@
-package dev.snowk.dante.util.menu.button.paginated;
+package git.snowk.invincible.utils.menu.button.paginated;
 
-import dev.snowk.dante.util.ItemMaker;
-import dev.snowk.dante.util.menu.Menu;
-import dev.snowk.dante.util.menu.button.Button;
-import dev.snowk.dante.util.menu.paginated.MenuPaginated;
+import git.snowk.invincible.utils.ItemMaker;
+import git.snowk.invincible.utils.menu.Menu;
+import git.snowk.invincible.utils.menu.button.Button;
+import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
@@ -21,8 +21,9 @@ public class BackButton implements Button {
 
     @Override
     public ItemStack icon() {
-        ItemMaker maker = ItemMaker.of(Material.ARROW);
+        ItemMaker maker = ItemMaker.of(Material.REDSTONE);
         maker.setDisplayName("&cBack");
+        maker.setLore("&7Click to go back.");
         return maker.build();
     }
 

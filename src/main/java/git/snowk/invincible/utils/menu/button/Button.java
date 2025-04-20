@@ -1,4 +1,4 @@
-package dev.snowk.dante.util.menu.button;
+package git.snowk.invincible.utils.menu.button;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

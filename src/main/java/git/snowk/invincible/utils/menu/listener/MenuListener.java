@@ -1,9 +1,9 @@
-package dev.snowk.dante.util.menu.listener;
+package git.snowk.invincible.utils.menu.listener;
 
-import dev.snowk.dante.Dante;
-import dev.snowk.dante.util.CompatibleSound;
-import dev.snowk.dante.util.menu.Menu;
-import dev.snowk.dante.util.menu.MenuManager;
+import git.snowk.invincible.Invincible;
+import git.snowk.invincible.utils.CompatibleSound;
+import git.snowk.invincible.utils.menu.Menu;
+import git.snowk.invincible.utils.menu.MenuManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +20,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        Optional<Menu> openedMenu = Dante.getInstance().getMenuManager().getOpenedMenu(player);
+        Optional<Menu> openedMenu = Invincible.getInstance().getMenuManager().getOpenedMenu(player);
 
         openedMenu.ifPresent(menu -> {
             if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
@@ -55,11 +55,10 @@ public class MenuListener implements Listener {
     }
 
 
-
     @EventHandler
     public void onCloseInventory(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        Optional<Menu> openedMenu = Dante.getInstance().getMenuManager().getOpenedMenu(player);
+        Optional<Menu> openedMenu = Invincible.getInstance().getMenuManager().getOpenedMenu(player);
 
         openedMenu.ifPresent(menu -> {
             menu.onClose(event);

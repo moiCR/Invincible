@@ -1,11 +1,11 @@
-package dev.snowk.dante.util.menu.paginated;
+package git.snowk.invincible.utils.menu.paginated;
 
 
 
-import dev.snowk.dante.util.menu.Menu;
-import dev.snowk.dante.util.menu.button.Button;
-import dev.snowk.dante.util.menu.button.paginated.NextButton;
-import dev.snowk.dante.util.menu.button.paginated.PreviousButton;
+import git.snowk.invincible.utils.menu.Menu;
+import git.snowk.invincible.utils.menu.button.Button;
+import git.snowk.invincible.utils.menu.button.paginated.NextButton;
+import git.snowk.invincible.utils.menu.button.paginated.PreviousButton;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;

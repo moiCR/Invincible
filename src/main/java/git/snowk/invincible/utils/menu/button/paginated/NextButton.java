@@ -1,9 +1,9 @@
-package dev.snowk.dante.util.menu.button.paginated;
+package git.snowk.invincible.utils.menu.button.paginated;
 
 
-import dev.snowk.dante.util.ItemMaker;
-import dev.snowk.dante.util.menu.button.Button;
-import dev.snowk.dante.util.menu.paginated.MenuPaginated;
+import git.snowk.invincible.utils.ItemMaker;
+import git.snowk.invincible.utils.menu.button.Button;
+import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

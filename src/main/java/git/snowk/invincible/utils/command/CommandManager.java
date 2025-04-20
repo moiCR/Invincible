@@ -1,7 +1,7 @@
-package dev.snowk.dante.util.command;
+package git.snowk.invincible.utils.command;
 
-import dev.snowk.dante.Dante;
-import dev.snowk.dante.util.Colorizer;
+import git.snowk.invincible.Invincible;
+import git.snowk.invincible.utils.Colorizer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandMap;
@@ -64,11 +64,11 @@ public class CommandManager implements CommandExecutor {
                 Command command = method.getAnnotation(Command.class);
 
                 if (!command.permission().equals("") && (!sender.hasPermission(command.permission()))) {
-                    sendMessage(sender, "&cYou do not have permission to use this command.");
+                    sendMessage(sender, Invincible.getInstance().getLang().getString("NO_PERMISSION"));
                     return true;
                 }
                 if (command.inGameOnly() && !(sender instanceof Player)) {
-                    sendMessage(sender, "&cThis command in only executable in game.");
+                    sendMessage(sender, Invincible.getInstance().getLang().getString("ONLY_PLAYER"));
                     return true;
                 }
 
@@ -90,7 +90,7 @@ public class CommandManager implements CommandExecutor {
                 Command command = m.getAnnotation(Command.class);
 
                 if (m.getParameterTypes().length > 1 || m.getParameterTypes()[0] != CommandArgs.class) {
-                    Dante.getInstance().log("Unable to register command " + m.getName() + ". Unexpected method arguments");
+                    Invincible.getInstance().log("Unable to register command " + m.getName() + ". Unexpected method arguments");
                     continue;
                 }
 

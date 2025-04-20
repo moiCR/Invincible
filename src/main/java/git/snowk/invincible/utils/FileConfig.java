@@ -1,11 +1,12 @@
-package club.monkey.hydra.utils;
+package git.snowk.invincible.utils;
 
-import club.monkey.hydra.Hydra;
+import git.snowk.invincible.Invincible;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -13,23 +14,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class ConfigCreator extends YamlConfiguration {
+public class FileConfig extends YamlConfiguration {
 
     @Getter public final File file;
 
     private YamlConfiguration configuration;
 
-    public ConfigCreator(String name, Hydra main) throws RuntimeException {
-        this.file = new File(main.getDataFolder(), name);
+    public FileConfig(String name) throws RuntimeException {
+        this.file = new File(Invincible.getInstance().getDataFolder(), name);
 
         if(!this.file.exists()) {
-            main.saveResource(name, false);
+            Invincible.getInstance().saveResource(name, false);
         }
 
         try {
             this.load(this.file);
         } catch(IOException | InvalidConfigurationException e) {
-            Bukkit.getConsoleSender().sendMessage(CC.translate("&cError occurred while loading " + name + "."));
+            Bukkit.getConsoleSender().sendMessage(Colorizer.colorize("&cError occurred while loading " + name + "."));
 
             Stream.of(e.getMessage().split("\n")).forEach(line -> Bukkit.getConsoleSender().sendMessage(line));
             throw new RuntimeException();
@@ -72,12 +73,12 @@ public class ConfigCreator extends YamlConfiguration {
 
     @Override
     public String getString(String path) {
-        return CC.translate(super.getString(path, ""));
+        return Colorizer.colorize(super.getString(path, ""));
     }
 
     @Override
     public List<String> getStringList(String path) {
-        return super.getStringList(path).stream().map(CC::translate).collect(Collectors.toList());
+        return super.getStringList(path).stream().map(Colorizer::colorize).collect(Collectors.toList());
     }
 
 }

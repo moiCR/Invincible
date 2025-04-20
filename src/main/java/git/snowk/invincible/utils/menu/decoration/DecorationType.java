@@ -1,14 +1,14 @@
-package dev.snowk.dante.util.menu.decoration;
+package git.snowk.invincible.utils.menu.decoration;
 
-import dev.snowk.dante.util.ItemMaker;
-import dev.snowk.dante.util.menu.button.Button;
+import git.snowk.invincible.utils.ItemMaker;
+import git.snowk.invincible.utils.menu.button.Button;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import dev.snowk.dante.util.menu.Menu;
+import git.snowk.invincible.utils.menu.Menu;
 import org.bukkit.inventory.ItemStack;
 
 public enum DecorationType {
-
+    NONE,
     FILL,
     BORDER,
     CORNER;
@@ -27,6 +27,8 @@ public enum DecorationType {
                 break;
             case CORNER:
                 cornerDecoration();
+                break;
+            case NONE:
                 break;
         }
 

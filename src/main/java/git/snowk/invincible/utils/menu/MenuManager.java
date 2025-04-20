@@ -1,7 +1,8 @@
-package dev.snowk.dante.util.menu;
+package git.snowk.invincible.utils.menu;
 
-import dev.snowk.dante.Dante;
-import dev.snowk.dante.util.menu.listener.MenuListener;
+
+import git.snowk.invincible.Invincible;
+import git.snowk.invincible.utils.menu.listener.MenuListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class MenuManager {
 
     public MenuManager() {
         this.menuMap = new HashMap<>();
-        Bukkit.getPluginManager().registerEvents(new MenuListener(), Dante.getInstance());
+        Bukkit.getPluginManager().registerEvents(new MenuListener(), Invincible.getInstance());
     }
 
     public Optional<Menu> getOpenedMenu(Player player) {

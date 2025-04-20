@@ -1,4 +1,4 @@
-package dev.snowk.dante.util;
+package git.snowk.invincible.utils;
 
 
 import org.bukkit.Color;

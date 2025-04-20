@@ -1,0 +1,40 @@
+NO_PERMISSION: "&cInsufficient permissions."
+ONLY_PLAYER: "&cThis command in only executable in game."
+
+NO_KEY:
+  TEXT: "&cYou don't have the key to open this crate!"
+  SOUND: "VILLAGER_NO"
+
+NO_REWARD:
+  TEXT: "&cThere are no rewards in this crate!"
+  SOUND: "ANVIL_LAND"
+
+REWARD:
+  NO_EMPTY_INVENTORY: "&cYou don't have enough space in your inventory!"
+  SUCCESS:
+    SOUND: "NOTE_PIANO"
+
+CRATE:
+  NOT_EXISTS: "&cThere is no crate with the name %name%."
+  LOCATION_EXISTS: "&cThe location you are trying to add already exists."
+  LOCATION_ADDED: "&aYou have successfully added the location to the crate."
+  CREATE:
+    NO_NAME: "&cYou must specify a name for the crate."
+    ALREADY_EXISTS: "&cA crate with the name %name% already exists."
+    SUCCESS: "&aYou have successfully created a crate named %name%."
+    FAILED: "&cAn error occurred while creating the crate."
+  DELETE:
+    NO_NAME: "&cYou must specify a name for the crate."
+    NOT_EXISTS: "&cThere is no crate with the name %name%."
+    SUCCESS: "&aYou have successfully deleted the crate named %name%."
+    FAILED: "&cAn error occurred while deleting the crate."
+  KEY:
+    GIVE:
+      NO_PLAYER: "&cYou must specify a player to give the key to."
+      NOT_EXISTS: "&cThere is no player with the name %name%."
+      SUCCESS: "&aYou have successfully given the key to %name%."
+      FAILED: "&cAn error occurred while giving the key to %name%."
+      RECEIVED: "&aYou have received the &ex%amount% %crate% Key&a."
+      ALL:
+        SUCCESS: "&aYou have successfully given the key to all players."
+        FAILED: "&cAn error occurred while giving the key to all players."

@@ -1,4 +1,4 @@
-package dev.snowk.dante.util;
+package git.snowk.invincible.utils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -1,6 +1,5 @@
-package club.monkey.hydra.utils;
+package git.snowk.invincible.utils;
 
-import club.monkey.hydra.utils.menu.item.ItemMaker;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,6 +22,14 @@ public class ItemUtils {
             player.getInventory().setItemInHand(null);
         }
 
+    }
+
+    public void decrementItem(ItemStack item){
+        if (item.getAmount() > 1){
+            item.setAmount(item.getAmount() - 1);
+        }else{
+            item.setType(null);
+        }
     }
 
     public static String itemToBase64(ItemStack item) throws IllegalStateException {
