@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class CrateListener implements Listener {
@@ -28,7 +29,7 @@ public class CrateListener implements Listener {
 
         if (crate == null) return;
 
-        crate.handle(event, block.getLocation());
+        crate.handle(crate, event, block.getLocation());
     }
 
     @EventHandler
@@ -38,4 +39,5 @@ public class CrateListener implements Listener {
             event.getCrate().getHologram().updateHologram();
         });
     }
+
 }

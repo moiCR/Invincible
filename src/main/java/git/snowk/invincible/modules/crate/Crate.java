@@ -3,6 +3,7 @@ package git.snowk.invincible.modules.crate;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.hologram.CrateHologram;
 import git.snowk.invincible.modules.crate.key.CrateKey;
+import git.snowk.invincible.modules.crate.menu.edit.CrateEditMenu;
 import git.snowk.invincible.modules.crate.reward.CrateReward;
 import git.snowk.invincible.modules.crate.type.CrateType;
 import git.snowk.invincible.utils.Colorizer;
@@ -10,10 +11,13 @@ import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.Serializer;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -85,7 +89,48 @@ public class Crate extends CrateManager {
         return map;
     }
 
-    public boolean handleEdit(){
+    public boolean handleRemoveCrate(PlayerInteractEvent event, Location location){
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK) return false;
+        if (!player.isSneaking()) return false;
+        if (block == null) return false;
+
+        if (!location.equals(block.getLocation())) return false;
+        event.setCancelled(true);
+
+        if (!player.hasPermission("invincible.crate.admin")){
+            return false;
+        }
+
+        if (player.getGameMode() != GameMode.CREATIVE){
+            return false;
+        }
+
+        removeLocation(location);
+        CompatibleSound.ANVIL_BREAK.play(player);
+        save();
+        getHologram().updateHologram();
+        return true;
+    }
+
+    public void removeLocation(Location location){
+        locations.remove(location);
+    }
+
+    public boolean handleEdit(Crate crate, Location location, PlayerInteractEvent event){
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
+
+        if (block == null) return false;
+        if (!location.equals(block.getLocation())) return false;
+        event.setCancelled(true);
+
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && player.isSneaking() && player.hasPermission("invincible.crate.edit") && player.getGameMode() == GameMode.CREATIVE){
+            new CrateEditMenu(player, crate).open();
+            return true;
+        }
+
         return false;
     }
 
@@ -107,18 +152,23 @@ public class Crate extends CrateManager {
         CompatibleSound.NOTE_PLING.play(player);
     }
 
-    public void handle(PlayerInteractEvent event, Location location){
-        if (handleEdit()){
+    public void handle(Crate crate, PlayerInteractEvent event, Location location){
+
+        if (handleRemoveCrate(event, location)){
+            return;
+        }
+
+        if (handleEdit(crate, location, event)){
             return;
         }
 
         switch (crateType){
             case NORMAL:
-                getCrateType().handleNormal(this, event, location);
-                return;
+                getCrateType().handleNormal(crate, event, location);
+                break;
             case VIRTUAL:
-                getCrateType().handleVirtual(this, event, location);
-                return;
+                getCrateType().handleVirtual(crate, event, location);
+                break;
         }
     }
 
