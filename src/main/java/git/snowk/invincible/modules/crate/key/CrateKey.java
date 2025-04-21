@@ -32,6 +32,10 @@ public class CrateKey {
         return ItemMaker.of(this.item.clone()).setDisplayName(this.displayName).setLore(this.lore).addAllFlags().build();
     }
 
+    public ItemStack getItem(){
+        return this.item.clone();
+    }
+
     public Map<String, Object> serialize(){
         Map<String, Object> map = new HashMap<>();
         map.put("displayName", this.displayName);

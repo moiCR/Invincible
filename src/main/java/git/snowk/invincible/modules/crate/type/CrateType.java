@@ -7,9 +7,11 @@ import git.snowk.invincible.modules.crate.reward.CrateReward;
 import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.ItemUtils;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,11 +22,15 @@ public enum CrateType {
     BROADCAST,
     ROULETTE;
 
-    public void handleVirtual(Crate crate, PlayerInteractEvent event){
+    public void handleVirtual(Crate crate, PlayerInteractEvent event, Location location){
         Player player = event.getPlayer();
         ItemStack item = player.getItemInHand();
+        Block block = event.getClickedBlock();
 
         if (!crate.isKey(item)){
+            if (block == null) return;
+            if (!location.equals(block.getLocation())) return;
+            new CratePreviewMenu(player, crate).open();
             return;
         }
 
@@ -45,7 +51,7 @@ public enum CrateType {
     }
 
 
-    public void handleNormal(Crate crate, PlayerInteractEvent event){
+    public void handleNormal(Crate crate, PlayerInteractEvent event, Location location){
         ItemStack item = event.getPlayer().getItemInHand();
         Player player = event.getPlayer();
 
@@ -54,37 +60,27 @@ public enum CrateType {
 
         if (crate.getLocations().isEmpty()) return;
 
-        if (crate.getLocations().stream().anyMatch(location -> !block.getLocation().equals(location))) return;
+        if (!location.equals(block.getLocation())) return;
+
         event.setCancelled(true);
 
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK){
+            new CratePreviewMenu(player, crate).open();
+            return;
+        }
+
         if (!crate.isKey(item)){
-            switch (event.getAction()){
-                case RIGHT_CLICK_BLOCK -> {
-                    player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("NO_KEY.TEXT")));
-                    CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("NO_KEY.SOUND")).play(player);
-                    return;
-                }
-
-                case LEFT_CLICK_BLOCK -> {
-                    new CratePreviewMenu(player, crate).open();
-                    return;
-                }
+            if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
+                player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("NO_KEY.TEXT")));
+                CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("NO_KEY.SOUND")).play(player);
+                return;
             }
+            return;
         }
 
-        switch (event.getAction()){
-            case RIGHT_CLICK_BLOCK -> {
-                giveReward(crate, player);
-                break;
-            }
-
-            case LEFT_CLICK_BLOCK -> {
-                new CratePreviewMenu(player, crate).open();
-                break;
-            }
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
+            giveReward(crate, player);
         }
-
-
     }
 
     public void giveReward(Crate crate, Player player) {

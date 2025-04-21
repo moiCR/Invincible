@@ -1,4 +1,4 @@
-package git.snowk.invincible.utils.menu.button.paginated;
+package git.snowk.invincible.utils.menu.button.impl;
 
 
 import git.snowk.invincible.utils.ItemMaker;

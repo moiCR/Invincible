@@ -1,9 +1,8 @@
-package git.snowk.invincible.utils.menu.button.paginated;
+package git.snowk.invincible.utils.menu.button.impl;
 
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
-import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;

@@ -1,32 +1,32 @@
-package git.snowk.invincible.utils.menu.button.paginated;
+package git.snowk.invincible.utils.menu.button.impl;
 
 
 import git.snowk.invincible.utils.ItemMaker;
+import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
 import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PreviousButton implements Button {
+public class CloseButton implements Button {
 
-    private MenuPaginated paginated;
+    private Menu menu;
 
-    public PreviousButton(MenuPaginated paginated) {
-        this.paginated = paginated;
+    public CloseButton(Menu menu) {
+        this.menu = menu;
     }
 
     @Override
     public ItemStack icon() {
-        ItemMaker maker = ItemMaker.of(Material.CARPET).setDurability((short) 7);
-        maker.setDisplayName("&cPrevious Page");
+        ItemMaker maker = ItemMaker.of(Material.BARRIER);
+        maker.setDisplayName("&cClose");
         return maker.build();
     }
 
     @Override
     public void setAction(InventoryClickEvent event) {
-        paginated.previousPage();
-        paginated.update();
+        menu.getPlayer().closeInventory();
     }
 
     @Override

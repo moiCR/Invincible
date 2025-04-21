@@ -2,10 +2,11 @@ package git.snowk.invincible.modules.crate.menu.edit;
 
 import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.crate.menu.ChooseCrateMenu;
+import git.snowk.invincible.modules.crate.menu.edit.key.CrateKeyEditorMenu;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
-import git.snowk.invincible.utils.menu.button.paginated.BackButton;
+import git.snowk.invincible.utils.menu.button.impl.BackButton;
 import git.snowk.invincible.utils.menu.decoration.DecorationType;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
@@ -182,7 +183,7 @@ public class CrateEditMenu extends Menu {
             lore.add("");
             lore.add("&7Click to edit the key.");
 
-            return ItemMaker.of(crate.getKey().getKeyItem().getType())
+            return ItemMaker.of(crate.getKey().getItem())
                     .setDisplayName("&aKey Editor")
                     .setLore(lore)
                     .build();
@@ -190,7 +191,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-
+            new CrateKeyEditorMenu(getPlayer(), crate).open();
         }
 
         @Override
@@ -230,7 +231,7 @@ public class CrateEditMenu extends Menu {
             return ItemMaker.of(Material.PAPER)
                     .setDisplayName("&aHologram Editor")
                     .setLore("",
-                            "&aClick to manage the hologram.")
+                            "&7Click to manage the hologram.")
                     .build();
         }
 

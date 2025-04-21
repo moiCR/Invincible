@@ -107,18 +107,18 @@ public class Crate extends CrateManager {
         CompatibleSound.NOTE_PLING.play(player);
     }
 
-    public void handle(PlayerInteractEvent event){
+    public void handle(PlayerInteractEvent event, Location location){
         if (handleEdit()){
             return;
         }
 
         switch (crateType){
             case NORMAL:
-                getCrateType().handleNormal(this, event);
-                break;
+                getCrateType().handleNormal(this, event, location);
+                return;
             case VIRTUAL:
-                getCrateType().handleVirtual(this, event);
-                break;
+                getCrateType().handleVirtual(this, event, location);
+                return;
         }
     }
 

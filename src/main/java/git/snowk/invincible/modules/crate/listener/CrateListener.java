@@ -24,16 +24,15 @@ public class CrateListener implements Listener {
         if (block == null) return;
         if (block.getType() == Material.AIR) return;
 
-        Crate crate = Invincible.getInstance().getCrateManager().getByLocation(block.getLocation());
+        Crate crate = Invincible.getInstance().getCrateManager().getCrate(block.getLocation());
 
         if (crate == null) return;
 
-        crate.handle(event);
+        crate.handle(event, block.getLocation());
     }
 
     @EventHandler
     public void onCrateHologramUpdate(CrateHologramUpdateEvent event){
-
         // run in the main server thread due to asynchronous problems with HolographicDisplays
         Bukkit.getScheduler().runTask(Invincible.getInstance(), () -> {
             event.getCrate().getHologram().updateHologram();

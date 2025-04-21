@@ -95,6 +95,7 @@ public abstract class Menu {
             }
 
             getButtons().forEach((key, button) -> {
+                if (key > getSize()) return;
                 this.inventory.setItem(key, button.icon());
             });
 

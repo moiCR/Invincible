@@ -4,8 +4,9 @@ package git.snowk.invincible.utils.menu.paginated;
 
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
-import git.snowk.invincible.utils.menu.button.paginated.NextButton;
-import git.snowk.invincible.utils.menu.button.paginated.PreviousButton;
+import git.snowk.invincible.utils.menu.button.impl.NextButton;
+import git.snowk.invincible.utils.menu.button.impl.PanelButton;
+import git.snowk.invincible.utils.menu.button.impl.PreviousButton;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
@@ -67,6 +68,11 @@ public abstract class MenuPaginated extends Menu {
         }
 
         returningButtons.put(0, new PreviousButton(this));
+
+        for (int i = 1; i < 8; i++) {
+            returningButtons.put(i, new PanelButton());
+        }
+
         returningButtons.put(8, new NextButton(this));
 
         returningButtons.putAll(navigateBar);

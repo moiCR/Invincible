@@ -5,7 +5,7 @@ import git.snowk.invincible.modules.crate.type.CrateType;
 import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.button.Button;
-import git.snowk.invincible.utils.menu.button.paginated.BackButton;
+import git.snowk.invincible.utils.menu.button.impl.BackButton;
 import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;

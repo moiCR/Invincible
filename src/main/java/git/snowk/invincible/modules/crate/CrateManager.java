@@ -58,4 +58,8 @@ public class CrateManager {
         }
         return null;
     }
+
+    public Crate getCrate(Location location) {
+        return getCrates().values().stream().filter(crate -> crate.getLocations().contains(location)).findFirst().orElse(null);
+    }
 }
