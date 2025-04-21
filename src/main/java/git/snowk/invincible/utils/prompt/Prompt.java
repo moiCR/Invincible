@@ -72,7 +72,7 @@ public abstract class Prompt<T> {
         promptManager.startPrompt(player, this, timeout);
     }
 
-    public void sendMessage(Player player, String text){
+    public void sendMessage(Player player, String text) {
         player.sendMessage(Colorizer.colorize(text));
     }
 }

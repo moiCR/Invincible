@@ -32,7 +32,7 @@ public class CrateKeyEditLoreMenu extends MenuPaginated {
         int index = 0;
         Map<Integer, Button> buttons = new HashMap<>();
 
-        for (String line : crate.getKey().getLore()){
+        for (String line : crate.getKey().getLore()) {
             buttons.put(index, new LineButton(line, index));
             index++;
         }
@@ -41,7 +41,7 @@ public class CrateKeyEditLoreMenu extends MenuPaginated {
     }
 
     @AllArgsConstructor
-    private class LineButton implements Button{
+    private class LineButton implements Button {
 
         private final String line;
         private final int index;
@@ -58,12 +58,12 @@ public class CrateKeyEditLoreMenu extends MenuPaginated {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            if (event.isLeftClick()){
+            if (event.isLeftClick()) {
                 new KeyLoreEditLinePrompt(index, crate).startPrompt(getPlayer());
                 return;
             }
 
-            if (event.isRightClick()){
+            if (event.isRightClick()) {
                 crate.getKey().getLore().remove(index);
                 update();
             }
@@ -75,7 +75,7 @@ public class CrateKeyEditLoreMenu extends MenuPaginated {
         }
     }
 
-    private class NewLineButton implements Button{
+    private class NewLineButton implements Button {
 
         @Override
         public ItemStack icon() {
@@ -89,12 +89,12 @@ public class CrateKeyEditLoreMenu extends MenuPaginated {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            if (event.isLeftClick()){
+            if (event.isLeftClick()) {
                 new KeyLoreNewLinePrompt(crate).startPrompt(getPlayer());
                 return;
             }
 
-            if (event.isRightClick()){
+            if (event.isRightClick()) {
                 crate.getKey().getLore().add("");
                 update();
             }

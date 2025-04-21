@@ -3,6 +3,7 @@ package git.snowk.invincible.utils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
@@ -15,30 +16,30 @@ import java.io.IOException;
 @UtilityClass
 public class ItemUtils {
 
-    public void decrementItem(Player player){
-        if (player.getItemInHand().getAmount() > 1){
+    public void decrementItem(Player player) {
+        if (player.getItemInHand().getAmount() > 1) {
             player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
-        }else{
+        } else {
             player.getInventory().setItemInHand(null);
         }
 
     }
 
-    public void decrementItem(ItemStack item){
-        if (item.getAmount() > 1){
+    public void decrementItem(Player player, ItemStack item) {
+        if (item.getAmount() > 1) {
             item.setAmount(item.getAmount() - 1);
-        }else{
-            item.setType(null);
+        } else {
+            player.getInventory().removeItem(item);
         }
     }
 
     public static String itemToBase64(ItemStack item) throws IllegalStateException {
-        if(item == null) {
+        if (item == null) {
             return "";
         }
 
-        try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
             dataOutput.writeObject(item);
 
             dataOutput.close();
@@ -49,12 +50,12 @@ public class ItemUtils {
     }
 
     public ItemStack itemFromBase64(String data) {
-        if(data == null || data.isEmpty()) {
+        if (data == null || data.isEmpty()) {
             return ItemMaker.of(Material.BARRIER).setAmount(1).setDisplayName("&cError to load Item").build();
         }
 
-        try(ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
-            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
             dataInput.close();
             return (ItemStack) dataInput.readObject();
         } catch (IOException | ClassNotFoundException e) {

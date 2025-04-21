@@ -40,7 +40,7 @@ public class CrateKeySetItemMenu extends Menu {
     }
 
 
-    private class KeyItemButton implements Button{
+    private class KeyItemButton implements Button {
 
         @Override
         public ItemStack icon() {

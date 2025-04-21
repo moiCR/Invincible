@@ -29,8 +29,7 @@ public class CommandManager implements CommandExecutor {
     public CommandManager(JavaPlugin plugin) {
         this.plugin = plugin;
 
-        if (plugin.getServer().getPluginManager() instanceof SimplePluginManager) {
-            SimplePluginManager manager = (SimplePluginManager) plugin.getServer().getPluginManager();
+        if (plugin.getServer().getPluginManager() instanceof SimplePluginManager manager) {
             try {
                 Field field = SimplePluginManager.class.getDeclaredField("commandMap");
                 field.setAccessible(true);
@@ -103,7 +102,7 @@ public class CommandManager implements CommandExecutor {
         }
     }
 
-    public void sendMessage(CommandSender sender, String message){
+    public void sendMessage(CommandSender sender, String message) {
         sender.sendMessage(Colorizer.colorize(message));
     }
 

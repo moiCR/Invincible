@@ -3,7 +3,6 @@ package git.snowk.invincible.utils.menu.listener;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.menu.Menu;
-import git.snowk.invincible.utils.menu.MenuManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,20 +34,20 @@ public class MenuListener implements Listener {
             event.setCancelled(!menu.isAllowAddItems());
 
             menu.getDecorationButtons().forEach((key, button) -> {
-               if (key == event.getSlot()) {
-                   event.setCancelled(!button.isInteractable());
-                   button.setAction(event);
-               }
+                if (key == event.getSlot()) {
+                    event.setCancelled(!button.isInteractable());
+                    button.setAction(event);
+                }
             });
 
             menu.getButtons().forEach((key, button) -> {
-               if (key == event.getSlot()) {
-                   event.setCancelled(!button.isInteractable());
-                   button.setAction(event);
-                   if (menu.isSoundOnClick()) {
-                       CompatibleSound.CLICK.play(player);
-                   }
-               }
+                if (key == event.getSlot()) {
+                    event.setCancelled(!button.isInteractable());
+                    button.setAction(event);
+                    if (menu.isSoundOnClick()) {
+                        CompatibleSound.CLICK.play(player);
+                    }
+                }
             });
 
         });

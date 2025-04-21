@@ -18,7 +18,7 @@ public class HDHologramType implements IHologram {
     private final Map<String, List<Hologram>> holograms;
     private final HolographicDisplaysAPI api;
 
-    public HDHologramType(Invincible plugin){
+    public HDHologramType(Invincible plugin) {
         this.api = HolographicDisplaysAPI.get(plugin);
         this.holograms = new HashMap<>();
     }
@@ -28,7 +28,7 @@ public class HDHologramType implements IHologram {
     public void createHologram(Crate crate, boolean haveItem) {
         if (crate.getLocations().isEmpty()) return;
 
-        for (Location oldLoc : crate.getLocations()){
+        for (Location oldLoc : crate.getLocations()) {
 
             int linesCount = crate.getHologram().getLines().size();
             Location newLoc = oldLoc.clone().add(0.5, 1 + (0.25 * linesCount), 0.5);
@@ -38,17 +38,17 @@ public class HDHologramType implements IHologram {
 //
 //            }
 
-            for (String holoLine : crate.getHologram().getLines()){
+            for (String holoLine : crate.getHologram().getLines()) {
                 newHolo.getLines().appendText(Colorizer.colorize(holoLine).replace("<crate>", crate.getCrateName()));
             }
 
             newHolo.setPosition(newLoc);
 
-            if (holograms.containsKey(crate.getCrateName())){
+            if (holograms.containsKey(crate.getCrateName())) {
                 List<Hologram> holoList = new ArrayList<>(holograms.get(crate.getCrateName()));
                 holoList.add(newHolo);
                 holograms.put(crate.getCrateName(), holoList);
-            }else{
+            } else {
                 holograms.put(crate.getCrateName(), new ArrayList<>());
                 holograms.get(crate.getCrateName()).add(newHolo);
             }
@@ -57,9 +57,9 @@ public class HDHologramType implements IHologram {
 
     @Override
     public void removeHolograms(Crate crate) {
-        if (holograms.containsKey(crate.getCrateName())){
+        if (holograms.containsKey(crate.getCrateName())) {
             List<Hologram> holoList = holograms.get(crate.getCrateName());
-            for (Hologram holo : holoList){
+            for (Hologram holo : holoList) {
                 holo.delete();
             }
             holograms.remove(crate.getCrateName());

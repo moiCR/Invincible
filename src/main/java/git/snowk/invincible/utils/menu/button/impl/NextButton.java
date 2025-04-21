@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class NextButton implements Button {
 
-    private MenuPaginated paginatedMenu;
+    private final MenuPaginated paginatedMenu;
 
     public NextButton(MenuPaginated paginatedMenu) {
         this.paginatedMenu = paginatedMenu;

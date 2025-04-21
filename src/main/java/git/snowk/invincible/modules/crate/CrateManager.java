@@ -14,45 +14,45 @@ public class CrateManager {
 
     private final Map<String, Crate> crates;
 
-    public CrateManager(){
+    public CrateManager() {
         this.crates = new HashMap<>();
         Invincible.getInstance().getCommandManager().registerCommands(new CrateCommand());
         new CrateListener();
     }
 
-    public void addCrate(Crate crate){
+    public void addCrate(Crate crate) {
         this.crates.put(crate.getCrateName(), crate);
     }
 
-    public boolean exists(String crateName){
+    public boolean exists(String crateName) {
         return this.crates.containsKey(crateName);
     }
 
-    public void removeCrate(Crate crate){
+    public void removeCrate(Crate crate) {
         Invincible.getInstance().getHookManager().getHologram().removeHolograms(crate);
         Invincible.getInstance().getStorageManager().getStorage().removeCrate(crate);
         this.crates.remove(crate.getCrateName());
     }
 
-    public Crate getByName(String name){
+    public Crate getByName(String name) {
         return this.crates.get(name);
     }
 
-    public void onEnable(){
-        for (Crate crate : this.crates.values()){
+    public void onEnable() {
+        for (Crate crate : this.crates.values()) {
             Invincible.getInstance().getHookManager().getHologram().createHologram(crate, false);
         }
     }
 
-    public void onDisable(){
-        for (Crate crate : this.crates.values()){
+    public void onDisable() {
+        for (Crate crate : this.crates.values()) {
             Invincible.getInstance().getHookManager().getHologram().removeHolograms(crate);
         }
     }
 
-    public Crate getByLocation(Location location){
-        for (Crate crate : this.crates.values()){
-            if (crate.getLocations().stream().anyMatch(loc -> loc.equals(location))){
+    public Crate getByLocation(Location location) {
+        for (Crate crate : this.crates.values()) {
+            if (crate.getLocations().stream().anyMatch(loc -> loc.equals(location))) {
                 return crate;
             }
         }

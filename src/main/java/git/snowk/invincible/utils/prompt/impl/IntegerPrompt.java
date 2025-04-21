@@ -4,8 +4,6 @@ import git.snowk.invincible.utils.prompt.Prompt;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-;
-
 public abstract class IntegerPrompt extends Prompt<Integer> {
 
 
@@ -19,10 +17,10 @@ public abstract class IntegerPrompt extends Prompt<Integer> {
         return toInt(input);
     }
 
-    public int toInt(String input){
-        try{
+    public int toInt(String input) {
+        try {
             return Integer.parseInt(input);
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }

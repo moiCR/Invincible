@@ -1,7 +1,6 @@
 package git.snowk.invincible.utils;
 
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

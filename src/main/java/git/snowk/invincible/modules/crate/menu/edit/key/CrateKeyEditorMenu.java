@@ -45,7 +45,7 @@ public class CrateKeyEditorMenu extends Menu {
         return buttons;
     }
 
-    private class ItemButton implements Button{
+    private class ItemButton implements Button {
 
         @Override
         public ItemStack icon() {
@@ -66,7 +66,7 @@ public class CrateKeyEditorMenu extends Menu {
         }
     }
 
-    private class DisplayNameButton implements Button{
+    private class DisplayNameButton implements Button {
 
         @Override
         public ItemStack icon() {
@@ -92,7 +92,7 @@ public class CrateKeyEditorMenu extends Menu {
         }
     }
 
-    private class KeyLoreButton implements Button{
+    private class KeyLoreButton implements Button {
 
         @Override
         public ItemStack icon() {
@@ -101,7 +101,7 @@ public class CrateKeyEditorMenu extends Menu {
             lore.add("");
             lore.add("&c• &eCurrent Lore: ");
 
-            for (String line : crate.getKey().getLore()){
+            for (String line : crate.getKey().getLore()) {
                 lore.add("  " + line);
             }
             lore.add("");

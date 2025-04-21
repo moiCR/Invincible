@@ -16,10 +16,10 @@ public abstract class DoublePrompt extends Prompt<Double> {
         return toDouble(input);
     }
 
-    public double toDouble(String input){
-        try{
+    public double toDouble(String input) {
+        try {
             return Double.parseDouble(input);
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }

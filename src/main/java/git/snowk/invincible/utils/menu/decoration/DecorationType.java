@@ -1,10 +1,9 @@
 package git.snowk.invincible.utils.menu.decoration;
 
 import git.snowk.invincible.utils.ItemMaker;
+import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
 import org.bukkit.event.inventory.InventoryClickEvent;
-
-import git.snowk.invincible.utils.menu.Menu;
 import org.bukkit.inventory.ItemStack;
 
 public enum DecorationType {
@@ -16,9 +15,9 @@ public enum DecorationType {
 
     private Menu menu;
 
-    public void decorate(Menu menu){
+    public void decorate(Menu menu) {
         this.menu = menu;
-        switch (this){
+        switch (this) {
             case FILL:
                 fillDecoration();
                 break;
@@ -37,23 +36,23 @@ public enum DecorationType {
         });
     }
 
-    private void fillDecoration(){
-        for (int i = 0; i < menu.getSize(); i++){
+    private void fillDecoration() {
+        for (int i = 0; i < menu.getSize(); i++) {
             setDecorationButton(i);
         }
     }
 
-    private void borderDecoration(){
+    private void borderDecoration() {
         int size = menu.getSize();
         int rows = menu.getRows();
 
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < 9; i++) {
             setDecorationButton(i);
             setDecorationButton(size - 9 + 1);
 
         }
 
-        for (int i = 0; i < rows-1; i++){
+        for (int i = 0; i < rows - 1; i++) {
             setDecorationButton(i + 9);
             setDecorationButton(i * 9 + 8);
         }

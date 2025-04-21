@@ -1,9 +1,8 @@
 package git.snowk.invincible.utils.menu;
 
 
-
 import git.snowk.invincible.Invincible;
-import git.snowk.invincible.utils.*;
+import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.menu.button.Button;
 import git.snowk.invincible.utils.menu.decoration.DecorationType;
 import lombok.Getter;
@@ -21,7 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter @Setter
+@Getter
+@Setter
 public abstract class Menu {
 
     private int rows;
@@ -56,28 +56,27 @@ public abstract class Menu {
     public abstract Map<Integer, Button> getButtons();
 
 
-
-    public void redirect(Menu menu){
+    public void redirect(Menu menu) {
         new BukkitRunnable() {
             @Override
             public void run() {
                 menu.open();
             }
-        }.runTaskLater(Invincible.getInstance(), (long)0.5*20L);
+        }.runTaskLater(Invincible.getInstance(), 0L);
     }
 
-    public void open(){
+    public void open() {
 
-        if (!player.isOnline()){
+        if (!player.isOnline()) {
             clean();
             return;
         }
 
-        if (rows > 6 || rows < 1){
+        if (rows > 6 || rows < 1) {
             rows = 6;
         }
 
-        this.inventory = Bukkit.createInventory(null, getRows()*9, ChatColor.translateAlternateColorCodes('&', getTitle()));
+        this.inventory = Bukkit.createInventory(null, getRows() * 9, ChatColor.translateAlternateColorCodes('&', getTitle()));
 
         update();
 
@@ -86,11 +85,11 @@ public abstract class Menu {
         Invincible.getInstance().getMenuManager().addMenu(player, this);
     }
 
-    public void update(){
+    public void update() {
         Bukkit.getScheduler().runTaskAsynchronously(Invincible.getInstance(), () -> {
             this.getInventory().clear();
 
-            if (isDecoration()){
+            if (isDecoration()) {
                 decorationType.decorate(this);
             }
 
@@ -103,38 +102,37 @@ public abstract class Menu {
         });
     }
 
-    public void clean(){
+    public void clean() {
         getDecorationButtons().clear();
         getButtons().clear();
         Invincible.getInstance().getMenuManager().removeMenu(player);
 
-        if (updateTask != null){
+        if (updateTask != null) {
             updateTask.cancel();
         }
     }
 
 
-
-    public void onClose(InventoryCloseEvent event){
+    public void onClose(InventoryCloseEvent event) {
     }
 
 
-    public int getSize(){
-        return getRows()*9;
+    public int getSize() {
+        return getRows() * 9;
     }
 
-    public void sendMessage(Player player, String text){
+    public void sendMessage(Player player, String text) {
         player.sendMessage(Colorizer.colorize(text));
     }
 
-    public void sendMessage(Player player, List<String> texts){
-        for (String text : texts){
+    public void sendMessage(Player player, List<String> texts) {
+        for (String text : texts) {
             sendMessage(player, text);
         }
     }
 
-    public void sendMessage(Player player, String... texts){
-        for (String text : texts){
+    public void sendMessage(Player player, String... texts) {
+        for (String text : texts) {
             sendMessage(player, text);
         }
     }

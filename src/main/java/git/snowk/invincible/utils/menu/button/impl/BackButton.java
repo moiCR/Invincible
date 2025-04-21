@@ -11,7 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class BackButton implements Button {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Menu previousMenu;
 
     public BackButton(Menu previousMenu) {

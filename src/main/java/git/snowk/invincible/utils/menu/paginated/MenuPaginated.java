@@ -1,7 +1,6 @@
 package git.snowk.invincible.utils.menu.paginated;
 
 
-
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
 import git.snowk.invincible.utils.menu.button.impl.NextButton;
@@ -14,7 +13,8 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter @Setter
+@Getter
+@Setter
 public abstract class MenuPaginated extends Menu {
 
     private int currentPage = 1;
@@ -27,7 +27,7 @@ public abstract class MenuPaginated extends Menu {
 
     @Override
     public void open() {
-        if (getRows() == 1){
+        if (getRows() == 1) {
             setRows(2);
         }
 

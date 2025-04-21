@@ -5,6 +5,7 @@ import git.snowk.invincible.modules.crate.menu.ChooseCrateMenu;
 import git.snowk.invincible.modules.crate.menu.edit.hologram.CrateHologramEditMenu;
 import git.snowk.invincible.modules.crate.menu.edit.key.CrateKeyEditorMenu;
 import git.snowk.invincible.modules.crate.menu.edit.menu.CrateMenuEditorMenu;
+import git.snowk.invincible.modules.crate.menu.edit.rewards.CrateManageRewardsMenu;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 
 public class CrateEditMenu extends Menu {
@@ -157,7 +157,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            //TODO: loot editor
+            new CrateManageRewardsMenu(getPlayer(), crate).open();
         }
 
         @Override
@@ -179,7 +179,7 @@ public class CrateEditMenu extends Menu {
             lore.add("&c• &eItem: &f" + crate.getKey().getItem().getType().name() + ":" + crate.getKey().getItem().getDurability());
             lore.add("&c• &eDisplayName: &f" + crate.getKey().getDisplayName());
             lore.add("&c• &eLore:");
-            for (String line : crate.getKey().getLore()){
+            for (String line : crate.getKey().getLore()) {
                 lore.add("  " + line);
             }
             lore.add("");
@@ -202,7 +202,7 @@ public class CrateEditMenu extends Menu {
         }
     }
 
-    private class RemoveButton implements Button{
+    private class RemoveButton implements Button {
 
         @Override
         public ItemStack icon() {

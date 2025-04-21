@@ -26,7 +26,7 @@ public class CratePreviewMenu extends Menu {
     public Map<Integer, Button> getButtons() {
         Map<Integer, Button> buttons = new HashMap<>();
 
-        for (CrateReward reward : this.crate.getRewards()){
+        for (CrateReward reward : this.crate.getRewards()) {
             buttons.put(reward.getSlot(), new RewardButton(reward));
         }
 
@@ -36,18 +36,18 @@ public class CratePreviewMenu extends Menu {
     private record RewardButton(CrateReward reward) implements Button {
 
         @Override
-            public ItemStack icon() {
-                return reward.getItem().clone();
-            }
+        public ItemStack icon() {
+            return reward.getItem().clone();
+        }
 
-            @Override
-            public void setAction(InventoryClickEvent event) {
+        @Override
+        public void setAction(InventoryClickEvent event) {
 
-            }
+        }
 
-            @Override
-            public boolean isInteractable() {
-                return false;
-            }
+        @Override
+        public boolean isInteractable() {
+            return false;
+        }
     }
 }

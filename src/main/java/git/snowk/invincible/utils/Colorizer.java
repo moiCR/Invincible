@@ -12,15 +12,15 @@ public class Colorizer {
 
     public String LINE = colorize("&7&m--------------------------");
 
-    public String colorize(String text){
+    public String colorize(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    public List<String> colorizeList(List<String> text){
+    public List<String> colorizeList(List<String> text) {
         return text.stream().map(Colorizer::colorize).collect(Collectors.toList());
     }
 
-    public List<String> colorizeList(String... text){
+    public List<String> colorizeList(String... text) {
         return colorizeList(Arrays.asList(text));
     }
 

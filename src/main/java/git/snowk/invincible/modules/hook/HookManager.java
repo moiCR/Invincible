@@ -3,8 +3,8 @@ package git.snowk.invincible.modules.hook;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.hook.hologram.IHologram;
 import git.snowk.invincible.modules.hook.hologram.type.DHHologramType;
-import git.snowk.invincible.modules.hook.hologram.type.NoneHologram;
 import git.snowk.invincible.modules.hook.hologram.type.HDHologramType;
+import git.snowk.invincible.modules.hook.hologram.type.NoneHologram;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 
@@ -14,19 +14,18 @@ public class HookManager {
     private String hologramType;
     private IHologram hologram;
 
-    public HookManager(){
+    public HookManager() {
         hookHologram();
     }
 
-    public void hookHologram(){
-        if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null){
+    public void hookHologram() {
+        if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null) {
             hologram = new HDHologramType(Invincible.getInstance());
             hologramType = "HolographicDisplays";
-        }else if (Bukkit.getPluginManager().getPlugin("DecentHolograms") != null){
+        } else if (Bukkit.getPluginManager().getPlugin("DecentHolograms") != null) {
             hologram = new DHHologramType();
             hologramType = "DecentHolograms";
-        }
-        else{
+        } else {
             hologram = new NoneHologram();
             hologramType = "None";
         }

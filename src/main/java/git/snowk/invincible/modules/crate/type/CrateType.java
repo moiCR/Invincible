@@ -3,10 +3,13 @@ package git.snowk.invincible.modules.crate.type;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.crate.menu.CratePreviewMenu;
+import git.snowk.invincible.modules.crate.menu.edit.CrateEditMenu;
 import git.snowk.invincible.modules.crate.reward.CrateReward;
 import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.ItemUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,6 +17,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public enum CrateType {
 
@@ -22,74 +30,102 @@ public enum CrateType {
     BROADCAST,
     ROULETTE;
 
-    public void handleVirtual(Crate crate, PlayerInteractEvent event, Location location){
-        Player player = event.getPlayer();
-        ItemStack item = player.getItemInHand();
-        Block block = event.getClickedBlock();
+    public void handle(PlayerInteractEvent event, Crate crate, Location location) {
+        if (handleRemoveCrate(crate, location, event)) return;
 
-        if (!crate.isKey(item)){
-            if (block == null) return;
-            if (!location.equals(block.getLocation())) return;
-            new CratePreviewMenu(player, crate).open();
-            return;
-        }
+        if (handleEdit(crate, location, event)) return;
 
-        switch (event.getAction()){
-            case LEFT_CLICK_BLOCK: {
-                new CratePreviewMenu(player, crate).open();
+        switch (crate.getCrateType()) {
+            case VIRTUAL:
+                handleVirtual(crate, event, location);
                 break;
-            }
-            case RIGHT_CLICK_AIR:
-            case RIGHT_CLICK_BLOCK:{
-                giveReward(crate, player);
-                break;
-            }
-
-            default:
+            case NORMAL:
+                handleNormal(crate, event, location);
                 break;
         }
     }
 
-
-    public void handleNormal(Crate crate, PlayerInteractEvent event, Location location){
-        ItemStack item = event.getPlayer().getItemInHand();
-        Player player = event.getPlayer();
-
+    public boolean handleRemoveCrate(Crate crate, Location location, PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
-        if (block == null) return;
+        Player player = event.getPlayer();
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK) return false;
+        if (!player.isSneaking()) return false;
+        if (block == null) return false;
 
-        if (crate.getLocations().isEmpty()) return;
-
-        if (!location.equals(block.getLocation())) return;
-
+        if (!location.equals(block.getLocation())) return false;
         event.setCancelled(true);
 
-        if (event.getAction() == Action.LEFT_CLICK_BLOCK){
+        if (!player.hasPermission("invincible.crate.admin")) {
+            return false;
+        }
+
+        if (player.getGameMode() != GameMode.CREATIVE) {
+            return false;
+        }
+
+        crate.removeLocation(location);
+        CompatibleSound.ANVIL_BREAK.play(player);
+        crate.save();
+        crate.getHologram().updateHologram();
+        return true;
+    }
+
+    public boolean handleEdit(Crate crate, Location location, PlayerInteractEvent event) {
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
+
+        if (block == null) return false;
+        if (!location.equals(block.getLocation())) return false;
+        event.setCancelled(true);
+
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && player.isSneaking() && player.hasPermission("invincible.crate.edit") && player.getGameMode() == GameMode.CREATIVE) {
+            new CrateEditMenu(player, crate).open();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void handleVirtual(Crate crate, PlayerInteractEvent event, Location location) {
+        Player player = event.getPlayer();
+        if (!crate.isKey(player.getItemInHand())) {
+            if (event.getClickedBlock().getLocation().equals(location)) {
+                event.setCancelled(true);
+                new CratePreviewMenu(player, crate).open();
+            }
+            return;
+        }
+
+        event.setCancelled(true);
+        if (event.getAction().name().startsWith("LEFT")) {
             new CratePreviewMenu(player, crate).open();
             return;
         }
 
-        if (!crate.isKey(item)){
-            if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
+        giveReward(crate, player);
+    }
+
+    public void handleNormal(Crate crate, PlayerInteractEvent event, Location location) {
+        Player player = event.getPlayer();
+        Block block = event.getClickedBlock();
+        if (block == null || !block.getLocation().equals(location)) return;
+
+        event.setCancelled(true);
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
+            if (!crate.isKey(event.getItem())) {
                 player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("NO_KEY.TEXT")));
                 CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("NO_KEY.SOUND")).play(player);
                 return;
             }
-            return;
-        }
 
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
             giveReward(crate, player);
+        } else if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+            new CratePreviewMenu(player, crate).open();
         }
     }
 
     public void giveReward(Crate crate, Player player) {
-        CrateReward reward = crate.getRandomReward();
-        if (reward == null){
-            player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("NO_REWARD.TEXT")));
-            CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("NO_REWARD.SOUND")).play(player);
-            return;
-        }
 
         if (player.getInventory().firstEmpty() == -1) {
             player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("REWARD.NO_EMPTY_INVENTORY")));
@@ -97,17 +133,24 @@ public enum CrateType {
             return;
         }
 
-        player.getInventory().addItem(reward.getItem().clone());
-        for (ItemStack contentItem : player.getInventory().getContents()){
-            if (contentItem == null) continue;
-            if (contentItem.getType() == Material.AIR) continue;
+        CrateReward reward = crate.getRandomReward();
 
-            if (crate.isKey(contentItem)){
-                ItemUtils.decrementItem(contentItem);
+        if (reward == null) {
+            player.sendMessage(Colorizer.colorize(Invincible.getInstance().getLang().getString("NO_REWARD.TEXT")));
+            CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("NO_REWARD.SOUND")).play(player);
+            return;
+        }
+
+        for (ItemStack contentItem : player.getInventory().getContents()) {
+            if (contentItem == null) continue;
+            if (crate.isKey(contentItem)) {
+                ItemUtils.decrementItem(player, contentItem);
                 player.updateInventory();
                 break;
             }
         }
+
+        player.getInventory().addItem(reward.getItem().clone());
         CompatibleSound.valueOf(Invincible.getInstance().getLang().getString("REWARD.SUCCESS.SOUND")).play(player);
     }
 

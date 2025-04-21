@@ -4,14 +4,13 @@ package git.snowk.invincible.utils.menu.button.impl;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
-import git.snowk.invincible.utils.menu.paginated.MenuPaginated;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CloseButton implements Button {
 
-    private Menu menu;
+    private final Menu menu;
 
     public CloseButton(Menu menu) {
         this.menu = menu;

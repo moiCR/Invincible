@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class JsonStorage implements IStorage {
 
-    private Gson gson;
-    private File cratesDir;
+    private final Gson gson;
+    private final File cratesDir;
 
     public JsonStorage(Gson gson) {
         this.gson = gson;
@@ -59,7 +59,7 @@ public class JsonStorage implements IStorage {
 
     @Override
     public void saveCrates() {
-        for (Crate crate : Invincible.getInstance().getCrateManager().getCrates().values()){
+        for (Crate crate : Invincible.getInstance().getCrateManager().getCrates().values()) {
             this.saveCrate(crate);
         }
     }

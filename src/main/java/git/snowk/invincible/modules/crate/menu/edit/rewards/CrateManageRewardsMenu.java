@@ -1,8 +1,7 @@
-package git.snowk.invincible.modules.crate.menu.edit.menu;
+package git.snowk.invincible.modules.crate.menu.edit.rewards;
 
 import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.crate.menu.edit.CrateEditMenu;
-import git.snowk.invincible.modules.crate.menu.prompt.MenuEditTitlePrompt;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
@@ -16,48 +15,46 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrateMenuEditorMenu extends Menu {
+public class CrateManageRewardsMenu extends Menu {
 
     private final Crate crate;
 
-    public CrateMenuEditorMenu(Player player, Crate crate) {
-        super(player, "Editing: " + crate.getCrateName(), 4, false);
+    public CrateManageRewardsMenu(Player player, Crate crate) {
+        super(player, "Edititng Rewards: ", 4, false);
         this.crate = crate;
-
         setDecoration(true);
         setDecorationType(DecorationType.FILL);
         setDecorationItem(ItemMaker.of(Material.STAINED_GLASS_PANE).setDisplayName(" ").setDurability(15).build());
-
         setSoundOnClick(true);
     }
 
     @Override
     public Map<Integer, Button> getButtons() {
         Map<Integer, Button> buttons = new HashMap<>();
-        buttons.put(12, new TitleButton());
-        buttons.put(14, new RowsButton());
+        buttons.put(12, new ManageRewardsButton());
+        buttons.put(14, new EditRewardsChanceButton());
 
         buttons.put(31, new BackButton(new CrateEditMenu(getPlayer(), crate)));
         return buttons;
     }
 
-    private class TitleButton implements Button {
+    private class ManageRewardsButton implements Button {
 
         @Override
         public ItemStack icon() {
-            return ItemMaker.of(Material.SIGN)
-                    .setDisplayName("&aSet Title")
+            return ItemMaker.of(Material.CHEST)
+                    .setDisplayName("&aManage Rewards")
                     .setLore(
                             "",
-                            "&c• &eCurrent Title: &f" + crate.getTitle(),
+                            "&c• &eCurrent Rewards: &f" + crate.getRewards().size(),
                             "",
-                            "&7Click to edit the title.")
+                            "&7Click to manage the rewards.")
                     .build();
         }
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            new MenuEditTitlePrompt(crate).startPrompt(getPlayer());
+            new CrateEditRewardsMenu(getPlayer(), crate).open();
         }
 
         @Override
@@ -66,39 +63,21 @@ public class CrateMenuEditorMenu extends Menu {
         }
     }
 
-    private class RowsButton implements Button {
+    private class EditRewardsChanceButton implements Button {
 
         @Override
         public ItemStack icon() {
-            return ItemMaker.of(Material.ARMOR_STAND)
-                    .setDisplayName("&aSet Rows")
+            return ItemMaker.of(Material.ENCHANTED_BOOK).addAllFlags()
+                    .setDisplayName("&aEdit Rewards Chance")
                     .setLore(
                             "",
-                            "&c• &eCurrent Rows: &f" + crate.getRows(),
-                            "",
-                            "&7Left-Click to decrease.",
-                            "&7Right-Click to increase.")
+                            "&7Click to edit the rewards chance.")
                     .build();
         }
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            if (event.isLeftClick()) {
-                if (crate.getRows() == 1) {
-                    return;
-                }
-                crate.setRows(crate.getRows() - 1);
-                update();
-                return;
-            }
-
-            if (event.isRightClick()) {
-                if (crate.getRows() == 6) {
-                    return;
-                }
-                crate.setRows(crate.getRows() + 1);
-                update();
-            }
+            new CrateChangeRewardChance(getPlayer(), crate).open();
         }
 
         @Override
@@ -106,4 +85,6 @@ public class CrateMenuEditorMenu extends Menu {
             return false;
         }
     }
+
+
 }

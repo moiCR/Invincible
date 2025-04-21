@@ -10,16 +10,16 @@ public class StorageManager {
 
     private final IStorage storage;
 
-    public StorageManager(){
+    public StorageManager() {
         this.storage = new JsonStorage(Invincible.getInstance().getGson());
     }
 
 
-    public void onLoad(){
+    public void onLoad() {
         this.storage.onLoad();
     }
 
-    public void onDisable(){
+    public void onDisable() {
         this.storage.onDisable();
     }
 }

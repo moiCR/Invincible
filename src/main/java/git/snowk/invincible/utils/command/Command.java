@@ -10,10 +10,15 @@ import java.lang.annotation.Target;
 public @interface Command {
 
     String name() default "";
+
     String permission() default "";
+
     String[] aliases() default {};
+
     String description() default "";
+
     String usage() default "";
+
     boolean inGameOnly() default true;
 }
 

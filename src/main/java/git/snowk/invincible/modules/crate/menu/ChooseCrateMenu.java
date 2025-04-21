@@ -27,7 +27,7 @@ public class ChooseCrateMenu extends MenuPaginated {
     @Override
     public Map<Integer, Button> getPaginatedButtons() {
         Map<Integer, Button> buttons = new HashMap<>();
-        for (Crate crate : Invincible.getInstance().getCrateManager().getCrates().values()){
+        for (Crate crate : Invincible.getInstance().getCrateManager().getCrates().values()) {
             buttons.put(buttons.size(), new CrateButton(crate));
         }
         return buttons;

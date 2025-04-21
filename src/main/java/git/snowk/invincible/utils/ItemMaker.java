@@ -18,49 +18,49 @@ public class ItemMaker {
     private final ItemStack item;
     private final ItemMeta meta;
 
-    private ItemMaker(ItemStack item){
+    private ItemMaker(ItemStack item) {
         this.item = item.clone();
         this.meta = item.getItemMeta();
     }
 
-    private ItemMaker(Material material){
+    private ItemMaker(Material material) {
         this.item = new ItemStack(material);
         this.meta = item.getItemMeta();
     }
 
-    private ItemMaker(String material){
+    private ItemMaker(String material) {
         this.item = new ItemStack(Material.getMaterial(material));
         this.meta = item.getItemMeta();
     }
 
-    public static ItemMaker of(ItemStack item){
+    public static ItemMaker of(ItemStack item) {
         return new ItemMaker(item);
     }
 
-    public static ItemMaker of(Material material){
+    public static ItemMaker of(Material material) {
         return new ItemMaker(material);
     }
 
-    public static ItemMaker of(String material){
+    public static ItemMaker of(String material) {
         return new ItemMaker(material);
     }
 
-    public ItemMaker setDisplayName(String displayName){
+    public ItemMaker setDisplayName(String displayName) {
         meta.setDisplayName(Colorizer.colorize(displayName));
         return this;
     }
 
-    public ItemMaker setLore(List<String> lore){
+    public ItemMaker setLore(List<String> lore) {
         meta.setLore(Colorizer.colorizeList(lore));
         return this;
     }
 
-    public ItemMaker setLore(String... lore){
+    public ItemMaker setLore(String... lore) {
         meta.setLore(Colorizer.colorizeList(lore));
         return this;
     }
 
-    public ItemMaker addLore(String... lore){
+    public ItemMaker addLore(String... lore) {
         if (!meta.hasLore()) meta.setLore(new ArrayList<>());
         if (meta.getLore() == null) meta.setLore(new ArrayList<>());
 
@@ -70,38 +70,38 @@ public class ItemMaker {
         return this;
     }
 
-    public ItemMaker setDurability(int durability){
+    public ItemMaker setDurability(int durability) {
         item.setDurability((short) durability);
         return this;
     }
 
-    public ItemMaker setAmount(int amount){
+    public ItemMaker setAmount(int amount) {
         item.setAmount(amount);
         return this;
     }
 
-    public ItemMaker addAllFlags(){
+    public ItemMaker addAllFlags() {
         meta.addItemFlags(ItemFlag.values());
         return this;
     }
 
-    public ItemMaker addFlag(ItemFlag flag){
+    public ItemMaker addFlag(ItemFlag flag) {
         meta.addItemFlags(flag);
         return this;
     }
 
-    public ItemMaker removeFlag(ItemFlag flag){
+    public ItemMaker removeFlag(ItemFlag flag) {
         meta.removeItemFlags(flag);
         return this;
     }
 
-    public ItemMaker removeAllFlags(){
+    public ItemMaker removeAllFlags() {
         meta.removeItemFlags(ItemFlag.values());
         return this;
     }
 
-    public ItemMaker setArmorColor(Color color){
-        if (!item.getType().name().startsWith("LEATHER_")){
+    public ItemMaker setArmorColor(Color color) {
+        if (!item.getType().name().startsWith("LEATHER_")) {
             return this;
         }
         LeatherArmorMeta leatherMeta = (LeatherArmorMeta) meta;
@@ -109,12 +109,12 @@ public class ItemMaker {
         return this;
     }
 
-    public ItemMaker addEnchant(Enchantment enchantment, int level){
+    public ItemMaker addEnchant(Enchantment enchantment, int level) {
         item.addEnchantment(enchantment, level);
         return this;
     }
 
-    public ItemStack build(){
+    public ItemStack build() {
         item.setItemMeta(meta);
         return item;
     }

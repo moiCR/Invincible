@@ -16,20 +16,21 @@ import java.util.stream.Stream;
 
 public class FileConfig extends YamlConfiguration {
 
-    @Getter public final File file;
+    @Getter
+    public final File file;
 
     private YamlConfiguration configuration;
 
     public FileConfig(String name) throws RuntimeException {
         this.file = new File(Invincible.getInstance().getDataFolder(), name);
 
-        if(!this.file.exists()) {
+        if (!this.file.exists()) {
             Invincible.getInstance().saveResource(name, false);
         }
 
         try {
             this.load(this.file);
-        } catch(IOException | InvalidConfigurationException e) {
+        } catch (IOException | InvalidConfigurationException e) {
             Bukkit.getConsoleSender().sendMessage(Colorizer.colorize("&cError occurred while loading " + name + "."));
 
             Stream.of(e.getMessage().split("\n")).forEach(line -> Bukkit.getConsoleSender().sendMessage(line));
@@ -40,14 +41,15 @@ public class FileConfig extends YamlConfiguration {
     public void save() {
         try {
             this.save(this.file);
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void reload() {
-        try{
+        try {
             this.load(this.file);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

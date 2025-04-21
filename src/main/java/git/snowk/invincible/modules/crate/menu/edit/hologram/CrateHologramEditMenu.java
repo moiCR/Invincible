@@ -35,7 +35,7 @@ public class CrateHologramEditMenu extends MenuPaginated {
 
         int index = 0;
 
-        for (String holoLine : crate.getHologram().getLines()){
+        for (String holoLine : crate.getHologram().getLines()) {
             buttons.put(buttons.size(), new LineButton(holoLine, index));
             index++;
         }
@@ -44,7 +44,7 @@ public class CrateHologramEditMenu extends MenuPaginated {
     }
 
     @AllArgsConstructor
-    private class LineButton implements Button{
+    private class LineButton implements Button {
 
         private String line;
         private int index;
@@ -61,12 +61,12 @@ public class CrateHologramEditMenu extends MenuPaginated {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            if (event.isLeftClick()){
+            if (event.isLeftClick()) {
                 new HologramEditLinePrompt(crate, index).startPrompt(getPlayer());
                 return;
             }
 
-            if (event.isRightClick()){
+            if (event.isRightClick()) {
                 crate.getHologram().getLines().remove(index);
                 update();
             }
@@ -78,7 +78,7 @@ public class CrateHologramEditMenu extends MenuPaginated {
         }
     }
 
-    private class AddLineButton implements Button{
+    private class AddLineButton implements Button {
 
         @Override
         public ItemStack icon() {
@@ -94,12 +94,12 @@ public class CrateHologramEditMenu extends MenuPaginated {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            if (event.isLeftClick()){
+            if (event.isLeftClick()) {
                 new HologramNewLinePrompt(crate).startPrompt(getPlayer());
                 return;
             }
 
-            if (event.isRightClick()){
+            if (event.isRightClick()) {
                 crate.getHologram().getLines().add("");
                 update();
             }

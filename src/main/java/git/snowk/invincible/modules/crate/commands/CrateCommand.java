@@ -2,7 +2,6 @@ package git.snowk.invincible.modules.crate.commands;
 
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.Crate;
-import git.snowk.invincible.modules.crate.key.CrateKey;
 import git.snowk.invincible.modules.crate.menu.ChooseCrateMenu;
 import git.snowk.invincible.modules.crate.menu.edit.CrateEditMenu;
 import git.snowk.invincible.utils.Colorizer;

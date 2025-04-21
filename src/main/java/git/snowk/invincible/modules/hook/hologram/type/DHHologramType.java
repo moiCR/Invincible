@@ -1,14 +1,11 @@
 package git.snowk.invincible.modules.hook.hologram.type;
 
 import eu.decentsoftware.holograms.api.DHAPI;
-import eu.decentsoftware.holograms.api.DecentHolograms;
-import eu.decentsoftware.holograms.api.DecentHologramsAPI;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.hook.hologram.IHologram;
 import git.snowk.invincible.utils.Colorizer;
 import org.bukkit.Location;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +16,7 @@ public class DHHologramType implements IHologram {
 
     private final Map<String, List<Hologram>> holograms;
 
-    public DHHologramType(){
+    public DHHologramType() {
         this.holograms = new HashMap<>();
     }
 
@@ -27,7 +24,7 @@ public class DHHologramType implements IHologram {
     public void createHologram(Crate crate, boolean haveItem) {
         if (crate.getLocations().isEmpty()) return;
 
-        for (Location oldLoc : crate.getLocations()){
+        for (Location oldLoc : crate.getLocations()) {
             int linesCount = crate.getHologram().getLines().size();
             List<String> lines = new ArrayList<>();
 
@@ -44,9 +41,9 @@ public class DHHologramType implements IHologram {
 
     @Override
     public void removeHolograms(Crate crate) {
-        if (holograms.containsKey(crate.getCrateName())){
+        if (holograms.containsKey(crate.getCrateName())) {
             List<Hologram> holoList = holograms.get(crate.getCrateName());
-            for (Hologram holo : holoList){
+            for (Hologram holo : holoList) {
                 DHAPI.removeHologram(holo.getId());
             }
             holograms.remove(crate.getCrateName());

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.Crate;
 import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class CrateHologram {
     private List<String> lines;
     private Crate crate;
 
-    public CrateHologram(Crate crate){
+    public CrateHologram(Crate crate) {
         this.crate = crate;
         this.lines = Lists.newArrayList(
                 "&e&l<crate> Crate",
@@ -21,17 +22,17 @@ public class CrateHologram {
         );
     }
 
-    public CrateHologram(Map<String, Object> map, Crate crate){
+    public CrateHologram(Map<String, Object> map, Crate crate) {
         this.crate = crate;
         this.lines = (List<String>) map.get("lines");
     }
 
 
-    public Map<String, Object> serialize(){
+    public Map<String, Object> serialize() {
         return Map.of("lines", lines);
     }
 
-    public void updateHologram(){
+    public void updateHologram() {
         Invincible.getInstance().getHookManager().getHologram().updateHolograms(crate);
     }
 }

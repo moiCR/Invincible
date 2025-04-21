@@ -60,11 +60,11 @@ public final class Invincible extends JavaPlugin {
     }
 
 
-    public void log(String text){
+    public void log(String text) {
         Bukkit.getConsoleSender().sendMessage(Colorizer.colorize(text));
     }
 
-    public static Invincible getInstance(){
+    public static Invincible getInstance() {
         return JavaPlugin.getPlugin(Invincible.class);
     }
 

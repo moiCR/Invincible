@@ -12,7 +12,7 @@ public class CrateReward {
     private double chance;
     private int slot;
 
-    public CrateReward(Map<String, Object> map){
+    public CrateReward(Map<String, Object> map) {
         this.item = ItemStack.deserialize((Map<String, Object>) map.get("item"));
         this.chance = Double.parseDouble(String.valueOf(map.get("chance")));
         this.slot = Integer.parseInt(String.valueOf(map.get("slot")));
@@ -29,7 +29,7 @@ public class CrateReward {
     }
 
 
-    public Map<String, Object> serialize(){
+    public Map<String, Object> serialize() {
         Map<String, Object> map = new java.util.HashMap<>();
         map.put("item", item.serialize());
         map.put("chance", String.valueOf(chance));
