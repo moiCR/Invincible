@@ -27,9 +27,11 @@ Invincible Crates is a plugin for Minecraft that allows you to create crates, ai
 #### Crates
 To view commands for crates, type `/crate` or `/cr` in the chat.
 ![Crate Commands](https://i.imgur.com/DrJKJlf.png)
+
 everything is configurable within the game. Use `/crate editor [crate]` to edit a crates.
 
 ![Crate Editor Menu](https://i.imgur.com/3tlrDLN.png)
+
 In the menu, you can configure the key, the hologram, the title and inventory rows, the rewards and more.
 
 
