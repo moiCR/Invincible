@@ -116,7 +116,7 @@ public class CrateKeyEditorMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-
+            new CrateKeyEditLoreMenu(getPlayer(), crate).open();
         }
 
         @Override

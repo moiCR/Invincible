@@ -1,6 +1,7 @@
 package git.snowk.invincible.utils.prompt;
 
 import git.snowk.invincible.Invincible;
+import git.snowk.invincible.utils.Colorizer;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
@@ -69,5 +70,9 @@ public abstract class Prompt<T> {
     public void startPrompt(Player player, long timeout) {
         PromptManager promptManager = Invincible.getInstance().getPromptManager();
         promptManager.startPrompt(player, this, timeout);
+    }
+
+    public void sendMessage(Player player, String text){
+        player.sendMessage(Colorizer.colorize(text));
     }
 }

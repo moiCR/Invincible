@@ -2,7 +2,9 @@ package git.snowk.invincible.modules.crate.menu.edit;
 
 import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.crate.menu.ChooseCrateMenu;
+import git.snowk.invincible.modules.crate.menu.edit.hologram.CrateHologramEditMenu;
 import git.snowk.invincible.modules.crate.menu.edit.key.CrateKeyEditorMenu;
+import git.snowk.invincible.modules.crate.menu.edit.menu.CrateMenuEditorMenu;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.Menu;
 import git.snowk.invincible.utils.menu.button.Button;
@@ -97,7 +99,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            //TODO: menu editor
+            new CrateMenuEditorMenu(getPlayer(), crate).open();
         }
 
         @Override

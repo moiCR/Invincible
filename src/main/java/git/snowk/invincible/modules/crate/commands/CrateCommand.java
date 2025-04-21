@@ -215,16 +215,14 @@ public class CrateCommand extends BaseCommand {
                 Colorizer.LINE,
                 "&e&lInvincible Crates",
                 "",
-                "&7<> required",
-                "&7[] optional",
-                "&7| alternative",
+                "&7<> Required, &7| Alternative, &7[] Optional",
                 "",
-                "&C• &b/" + label + " create | new <name>",
-                "&C• &b/" + label + " delete | remove <crate>",
-                "&C• &b/" + label + " edit | editor [crate]",
-                "&C• &b/" + label + " setlocation | set <crate>",
-                "&C• &b/" + label + " list | ls",
-                "&C• &b/" + label + " givekey | key <crate> <player | all> [amount]",
+                "&9• &b/" + label + " create | new <name>",
+                "&9• &b/" + label + " delete | remove <crate>",
+                "&9• &b/" + label + " edit | editor [crate]",
+                "&9• &b/" + label + " setlocation | set <crate>",
+                "&9• &b/" + label + " list | ls",
+                "&9• &b/" + label + " givekey | key <crate> <player | all> [amount]",
                 Colorizer.LINE
         );
     }

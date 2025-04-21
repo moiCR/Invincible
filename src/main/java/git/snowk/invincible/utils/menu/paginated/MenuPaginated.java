@@ -25,6 +25,15 @@ public abstract class MenuPaginated extends Menu {
         this.navigateBar = new HashMap<>();
     }
 
+    @Override
+    public void open() {
+        if (getRows() == 1){
+            setRows(2);
+        }
+
+        super.open();
+    }
+
     public abstract Map<Integer, Button> getPaginatedButtons();
 
     @Override

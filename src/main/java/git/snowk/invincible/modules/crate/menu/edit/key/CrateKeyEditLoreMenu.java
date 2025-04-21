@@ -1,9 +1,8 @@
-package git.snowk.invincible.modules.crate.menu.edit;
+package git.snowk.invincible.modules.crate.menu.edit.key;
 
 import git.snowk.invincible.modules.crate.Crate;
-import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
-import git.snowk.invincible.modules.crate.menu.prompt.HologramEditLinePrompt;
-import git.snowk.invincible.modules.crate.menu.prompt.HologramNewLinePrompt;
+import git.snowk.invincible.modules.crate.menu.prompt.KeyLoreEditLinePrompt;
+import git.snowk.invincible.modules.crate.menu.prompt.KeyLoreNewLinePrompt;
 import git.snowk.invincible.utils.ItemMaker;
 import git.snowk.invincible.utils.menu.button.Button;
 import git.snowk.invincible.utils.menu.button.impl.BackButton;
@@ -17,25 +16,24 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrateHologramEditMenu extends MenuPaginated {
+public class CrateKeyEditLoreMenu extends MenuPaginated {
 
     private final Crate crate;
 
-    public CrateHologramEditMenu(Player player, Crate crate) {
-        super(player, "Manage Crate Hologram", 2, false);
+    public CrateKeyEditLoreMenu(Player player, Crate crate) {
+        super(player, "Editing Key Lore: " + crate.getCrateName(), 1, false);
         this.crate = crate;
-        getNavigateBar().put(3, new BackButton(new CrateEditMenu(player, crate)));
-        getNavigateBar().put(5, new AddLineButton());
+        getNavigateBar().put(3, new BackButton(new CrateKeyEditorMenu(player, crate)));
+        getNavigateBar().put(5, new NewLineButton());
     }
 
     @Override
     public Map<Integer, Button> getPaginatedButtons() {
+        int index = 0;
         Map<Integer, Button> buttons = new HashMap<>();
 
-        int index = 0;
-
-        for (String holoLine : crate.getHologram().getLines()){
-            buttons.put(buttons.size(), new LineButton(holoLine, index));
+        for (String line : crate.getKey().getLore()){
+            buttons.put(index, new LineButton(line, index));
             index++;
         }
 
@@ -45,28 +43,28 @@ public class CrateHologramEditMenu extends MenuPaginated {
     @AllArgsConstructor
     private class LineButton implements Button{
 
-        private String line;
-        private int index;
+        private final String line;
+        private final int index;
 
         @Override
         public ItemStack icon() {
             return ItemMaker.of(Material.PAPER)
-                    .setDisplayName(line.isEmpty() ? "&cEmpty String" : line)
+                    .setDisplayName((line.isEmpty() ? "&cEmpty Line" : line))
                     .setLore("",
-                            "&7Left-Click to edit the line.",
-                            "&7Right-Click to remove the line.")
+                            "&7Left Click to edit the line.",
+                            "&7Right Click to remove the line.")
                     .build();
         }
 
         @Override
         public void setAction(InventoryClickEvent event) {
             if (event.isLeftClick()){
-                new HologramEditLinePrompt(crate, index).startPrompt(getPlayer());
+                new KeyLoreEditLinePrompt(index, crate).startPrompt(getPlayer());
                 return;
             }
 
             if (event.isRightClick()){
-                crate.getHologram().getLines().remove(index);
+                crate.getKey().getLore().remove(index);
                 update();
             }
         }
@@ -77,29 +75,27 @@ public class CrateHologramEditMenu extends MenuPaginated {
         }
     }
 
-    private class AddLineButton implements Button{
+    private class NewLineButton implements Button{
 
         @Override
         public ItemStack icon() {
             return ItemMaker.of(Material.NETHER_STAR)
-                    .setDisplayName("&eAdd line")
-                    .setLore(
-                            "",
-                            "&7Left-Click to add new line",
-                            "&7Right-Click to add empty line"
-                    )
+                    .setDisplayName("&aNew Line")
+                    .setLore("",
+                            "&7Left-Click to add a new line.",
+                            "&7Right-Click to add empty line.")
                     .build();
         }
 
         @Override
         public void setAction(InventoryClickEvent event) {
             if (event.isLeftClick()){
-                new HologramNewLinePrompt(crate).startPrompt(getPlayer());
+                new KeyLoreNewLinePrompt(crate).startPrompt(getPlayer());
                 return;
             }
 
             if (event.isRightClick()){
-                crate.getHologram().getLines().add("");
+                crate.getKey().getLore().add("");
                 update();
             }
         }
@@ -108,12 +104,5 @@ public class CrateHologramEditMenu extends MenuPaginated {
         public boolean isInteractable() {
             return false;
         }
-    }
-
-
-    @Override
-    public void update() {
-        super.update();
-        new CrateHologramUpdateEvent(crate);
     }
 }
