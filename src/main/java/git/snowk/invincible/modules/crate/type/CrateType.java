@@ -2,26 +2,20 @@ package git.snowk.invincible.modules.crate.type;
 
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.Crate;
+import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
 import git.snowk.invincible.modules.crate.menu.CratePreviewMenu;
 import git.snowk.invincible.modules.crate.menu.edit.CrateEditMenu;
 import git.snowk.invincible.modules.crate.reward.CrateReward;
 import git.snowk.invincible.utils.Colorizer;
 import git.snowk.invincible.utils.CompatibleSound;
 import git.snowk.invincible.utils.ItemUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public enum CrateType {
 
@@ -66,7 +60,7 @@ public enum CrateType {
         crate.removeLocation(location);
         CompatibleSound.ANVIL_BREAK.play(player);
         crate.save();
-        crate.getHologram().updateHologram();
+        new CrateHologramUpdateEvent(crate);
         return true;
     }
 

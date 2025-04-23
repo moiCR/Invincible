@@ -33,7 +33,7 @@ public class CrateEditRewardsMenu extends Menu {
     public Map<Integer, Button> getButtons() {
         Map<Integer, Button> buttons = new HashMap<>();
 
-        for (CrateReward reward : crate.getRewards()){
+        for (CrateReward reward : crate.getRewards()) {
             buttons.put(reward.getSlot(), new RewardButton(reward));
         }
 

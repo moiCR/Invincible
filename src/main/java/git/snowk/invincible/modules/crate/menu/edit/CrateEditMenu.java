@@ -4,6 +4,7 @@ import git.snowk.invincible.modules.crate.Crate;
 import git.snowk.invincible.modules.crate.menu.ChooseCrateMenu;
 import git.snowk.invincible.modules.crate.menu.edit.hologram.CrateHologramEditMenu;
 import git.snowk.invincible.modules.crate.menu.edit.key.CrateKeyEditorMenu;
+import git.snowk.invincible.modules.crate.menu.edit.locations.CrateManageLocationMenu;
 import git.snowk.invincible.modules.crate.menu.edit.menu.CrateMenuEditorMenu;
 import git.snowk.invincible.modules.crate.menu.edit.rewards.CrateManageRewardsMenu;
 import git.snowk.invincible.utils.ItemMaker;
@@ -128,7 +129,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            //TODO: manage locations menu
+            new CrateManageLocationMenu(getPlayer(), crate).open();
         }
 
         @Override
@@ -214,7 +215,7 @@ public class CrateEditMenu extends Menu {
 
         @Override
         public void setAction(InventoryClickEvent event) {
-            //TODO: confirm remove menu
+            new CrateConfirmRemoveMenu(getPlayer(), crate).open();
         }
 
         @Override

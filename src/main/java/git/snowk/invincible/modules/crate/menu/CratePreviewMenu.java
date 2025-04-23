@@ -36,17 +36,17 @@ public class CratePreviewMenu extends Menu {
     private record RewardButton(CrateReward reward) implements Button {
 
         @Override
-        public ItemStack icon() {
+        public ItemStack icon () {
             return reward.getItem().clone();
         }
 
         @Override
-        public void setAction(InventoryClickEvent event) {
+        public void setAction (InventoryClickEvent event){
 
         }
 
         @Override
-        public boolean isInteractable() {
+        public boolean isInteractable () {
             return false;
         }
     }

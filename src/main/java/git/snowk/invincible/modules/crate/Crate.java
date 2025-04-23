@@ -2,6 +2,7 @@ package git.snowk.invincible.modules.crate;
 
 import git.snowk.invincible.Invincible;
 import git.snowk.invincible.modules.crate.hologram.CrateHologram;
+import git.snowk.invincible.modules.crate.hologram.event.CrateHologramUpdateEvent;
 import git.snowk.invincible.modules.crate.key.CrateKey;
 import git.snowk.invincible.modules.crate.reward.CrateReward;
 import git.snowk.invincible.modules.crate.type.CrateType;
@@ -86,6 +87,7 @@ public class Crate {
 
     public void removeLocation(Location location) {
         locations.remove(location);
+        new CrateHologramUpdateEvent(this);
     }
 
 
@@ -143,6 +145,7 @@ public class Crate {
 
     public void remove() {
         Invincible.getInstance().getCrateManager().removeCrate(this);
+        new CrateHologramUpdateEvent(this);
     }
 
 }
